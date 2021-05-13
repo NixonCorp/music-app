@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'MetalLord-Regular';
+  src: url("../assets/fonts/metal lord.ttf") format("truetype");
+}
+
+.common-typography{
+  font-family: PT Root UI Web;
+  font-style: normal;
+}
+
+/* Large Text */
+.large-text {
+  @extend .common-typography;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 26px;
+}
+/* Headline Text*/
+.headline-text {
+  @extend .common-typography;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+}
+/* Body Text*/
+.body-text {
+  @extend .common-typography;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+}
+/* Subheadline Text */
+.subheadline-text {
+  @extend .common-typography;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 12px;
+}

@@ -1,0 +1,118 @@
+@import "null_style";
+@import "typography";
+
+.App {
+  transition: all 0.5s ease;
+  margin: 24px 24px 0px 24px;
+}
+
+.player-pane-active {
+  margin-right: 30%;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 35px;
+
+  &__logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &-image {
+      width: 20px;
+      margin-right: 10px;
+      svg{
+        width: 100%;
+        height: 100%;
+      }
+     path{
+       fill: black !important;
+     }
+    }
+
+    &-text {
+      font-family: 'MetalLord-Regular';
+      font-size: 18px;
+    }
+  }
+
+
+  &__search {
+    display: flex;
+    align-items: center;
+    min-width: 272px;
+    max-width: 100%;
+    height: 32px;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    border-radius: 200px;
+
+    &-input {
+      border: none;
+      width: 85%;
+
+      &::placeholder {
+        @extend .body-text;
+        color: #000000;
+        opacity: 0.4;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      &-input  {
+        width: 83%;
+      }
+
+    }
+    &-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: 16px;
+      padding: 0px;
+      width: 100%;
+      height: 18px;
+    }
+
+    &-icon {
+      margin-right: 8px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    &__search {
+      min-width: 0;
+    }
+
+  }
+}
+
+.title{
+  width: 197px;
+  height: 26px;
+  color: #3A3A3A;
+  @extend .large-text;
+  margin-bottom: 27px;
+}
+
+.albums-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 192px);
+  justify-content: space-between;
+  grid-gap: 32px;
+}
+
+@media screen and (max-width: 768px) {
+  .albums-container{
+    grid-template-columns: repeat(auto-fill, 130px);
+  }
+  .player-pane-active {
+    margin-right: 24px;
+  }
+}
+
+

@@ -1,0 +1,317 @@
+@import "typography";
+@import "equalizer";
+
+
+.player-pane {
+  position: fixed;
+  //top: 10px;
+  //bottom: 5px;
+  //right: 5px;
+  //width: 28%;
+  //height: 100%;
+  transform: translateX(-100%);
+  transition: all 0.5s ease;
+  opacity: 0;
+  //border: 1px solid #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 3rem 0 black;
+  background: #5f2c82; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #49a09d, #5f2c82); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+}
+
+@media screen and (max-width: 768px) {
+  .player-pane {
+    width: 95%;
+    height: 100%;
+    margin: 0 auto;
+    top: 20px;
+    left: 0;
+    right: 0;
+  }
+  .swapped-player-pane {
+    top: auto;
+    height: auto;
+    border-radius: 15px 15px 0px 0px;
+    width: 100%;
+    bottom: 0;
+  }
+  .playlist{
+    display: none;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .player-pane {
+    width: 28%;
+    top: 10px;
+    bottom: 5px;
+    right: 5px;
+  }
+}
+
+
+//.blur-bg{
+//  border: 1px solid #fff;
+//  border-radius: 15px;
+//  box-shadow: 0 0 3rem 0 rgba(0, 0, 0, 0.2);
+//  height: 100%;
+//  overflow: hidden;
+//  position: relative;
+//  width: 100%;
+//  &:before {
+//    background-color: rgba(255, 255, 255, 0.3);
+//    backdrop-filter: blur(10px) saturate(100%) contrast(45%) brightness(130%);
+//    -webkit-backdrop-filter: blur(10px) saturate(100%) contrast(45%) brightness(130%);
+//    content: "";
+//    height: 100%;
+//    position: absolute;
+//    width: 100%;
+//  }
+//position: absolute;
+//top: 0;
+//right: 0;
+//filter: blur(50px);
+//background: rgba(0, 0, 0, 0.01);
+//height: 100%;
+//width: 100%;
+//overflow:hidden;
+//background-position: center;
+//background-size: cover;
+//background-repeat: no-repeat;
+//background: no-repeat url("../assets/images/player-pane-bg.svg");
+//img{
+//  position: absolute;
+//  width: 1497px;
+//  right: -496px;
+//  top: -11.9%;
+//  bottom: -39.01%;
+//}
+//}
+
+.player-pane-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px;
+  width: 100%;
+  height: 100%;
+  filter: blur(0px);
+
+  &__description {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    height: 64px;
+
+    &-image {
+      width: 64px;
+      filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+      border-radius: 8px;
+
+      img {
+        all: inherit;
+      }
+    }
+  }
+
+  &__album-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+  }
+
+  &__album-name {
+    @extend .large-text;
+    color: #FFFFFF;
+  }
+
+  &__artist-name {
+    @extend .headline-text;
+    color: #FFFFFF;
+    opacity: 0.6;
+  }
+
+  &__time-control {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 48px;
+
+    input {
+      height: 5px;
+      width: 100%;
+      -webkit-appearance: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 5px;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border-radius: 100%;
+        background-color: #251d40;
+        height: 12px;
+        width: 12px;
+        overflow: visible;
+      }
+    }
+
+    &-duration {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &-passed, &-all {
+      @extend .subheadline-text;
+      color: #FFFFFF;
+      opacity: 0.6;
+    }
+
+  }
+
+  &__playlist {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
+
+    &-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 40px;
+      flex: 0 0 auto;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #251d40;
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+        left: 3%;
+        right: 3%;
+        padding: 0 2%;
+      }
+
+      //&:hover *{
+      //  color: #FFFFFF;
+      //}
+      &-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      &-col {
+        display: flex;
+        flex-direction: column;
+        margin-right: 8px;
+      }
+
+      &-position {
+        @extend .subheadline-text;
+        color: #FFFFFF;
+        opacity: 0.4;
+        margin-left: 5px;
+        margin-right: 8px;
+      }
+
+      &-play-icon {
+        min-width: 16px;
+        min-height: 16px;
+        background: no-repeat url("../assets/images/icons/play.svg");
+        margin-right: 8px;
+      }
+
+      &-pause-icon {
+        min-width: 16px;
+        min-height: 16px;
+        background: no-repeat url("../assets/images/icons/pause.svg");
+        margin-right: 8px;
+      }
+
+      &-equalizer-icon {
+        min-width: 16px;
+        min-height: 16px;
+        //background: no-repeat url("../assets/images/icons/equalizer.svg");
+        margin-right: 8px;
+      }
+
+      &-name {
+        @extend .headline-text;
+        color: #FFFFFF;
+      }
+
+      &-artist {
+        @extend .body-text;
+        color: #FFFFFF;
+        opacity: 0.6;
+        margin-right: 45px;
+      }
+
+      &-duration {
+        @extend .subheadline-text;
+        color: #FFFFFF;
+        opacity: 0.6;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  &__progress {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 5px;
+    position: relative;
+    //overflow: hidden;
+    //border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+
+  }
+  &__player-controls{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-top: -20px;
+    &-prev-icon{
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+    &-play-pause-icon{
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+    }
+    &-next-icon{
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.active-player-pane {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
