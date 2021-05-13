@@ -3,7 +3,6 @@ import '../styles/player-pane.scss'
 import {AlbumProps} from "./Album";
 import Hls from 'hls.js';
 import {ITrack} from "./Track";
-import {HoverProvider} from "./HoverProvider";
 import {ReactComponent as Equalizer} from '../assets/images/icons/equalizer.svg';
 import {ReactComponent as Prev} from '../assets/images/icons/prev.svg';
 import {ReactComponent as Next} from '../assets/images/icons/next.svg';
