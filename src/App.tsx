@@ -38,7 +38,7 @@ function App() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(searchText),
         };
-        return await fetch('https://vk-music-api.herokuapp.com/api/Vk', requestOptions)
+        return await fetch('http://localhost:5003/api/Vk', requestOptions)
             .then((res) => res.json())
             .then((body) => body);
     };
@@ -50,7 +50,7 @@ function App() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(genreId),
         };
-        return await fetch('https://vk-music-api.herokuapp.com/api/Vk/GetPopular', requestOptions)
+        return await fetch('http://localhost:5003/api/Vk/GetPopular', requestOptions)
             .then((res) => res.json())
             .then((body) => body);
     };
