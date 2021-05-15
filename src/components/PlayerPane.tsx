@@ -34,8 +34,14 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     //         return new Request(context.url, initParams);
     //     },
     // };
-
-    const _hlsInstance: Hls = new Hls();
+    var config = {
+        //@ts-ignore
+        xhrSetup: function (xhr, url) {
+            url = 'https://secret-ocean-49799.herokuapp.com/' + url;
+        },
+    };
+    //@ts-ignore
+    const _hlsInstance: Hls = new Hls(config);
 
     const [currentTrack, setCurrentTrack] = useState<ITrack>(album.tracks[0]);
     const audioRef = useRef(null);
@@ -51,7 +57,7 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     const loadSource = (src: string) => {
 
         if (Hls.isSupported()) {
-            _hlsInstance.loadSource('https://secret-ocean-49799.herokuapp.com/' + src);
+            _hlsInstance.loadSource(src);
             // @ts-ignore
             _hlsInstance.attachMedia(audioRef.current);
 
