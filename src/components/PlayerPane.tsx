@@ -41,14 +41,14 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     const loadSource = (src: string) => {
 
         if (Hls.isSupported()) {
-            _hlsInstance.loadSource(src);
+            _hlsInstance.loadSource('https://cors-anywhere.herokuapp.com/' + src);
             // @ts-ignore
             _hlsInstance.attachMedia(audioRef.current);
 
         } else { // @ts-ignore
             if (audioRef.current.canPlayType('application/vnd.apple.mpegurl')) {
                 // @ts-ignore
-                audioRef.current.src = currentTrack.src;
+                audioRef.current.src = 'https://cors-anywhere.herokuapp.com/' + currentTrack.src;
                 // @ts-ignore
                 audioRef.current.pause();
             }
