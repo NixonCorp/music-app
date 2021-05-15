@@ -38,7 +38,8 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
         //@ts-ignore
         xhrSetup: function (xhr, url) {
             if (url.indexOf('.vkuseraudio.net') === 0) {
-                xhr.open('GET', 'https://secret-ocean-49799.herokuapp.com/' + url, true);
+                url = 'https://secret-ocean-49799.herokuapp.com/'.concat(url);
+                xhr.open('GET', url, true);
             }
 
         },
