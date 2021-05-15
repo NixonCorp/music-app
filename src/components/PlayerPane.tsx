@@ -24,6 +24,16 @@ const getTime = (time: number) => {
 
 const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
 
+    // const config = {
+    //     //@ts-ignore
+    //     fetchSetup: function (context, initParams) {
+    //         // Always send cookies, even for cross-origin calls.
+    //         let myHeaders = new Headers();
+    //         myHeaders.append('X-Requested-With', 'XMLHttpRequest');
+    //         initParams.headers = myHeaders;
+    //         return new Request(context.url, initParams);
+    //     },
+    // };
 
     const _hlsInstance: Hls = new Hls();
 
@@ -41,14 +51,14 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     const loadSource = (src: string) => {
 
         if (Hls.isSupported()) {
-            _hlsInstance.loadSource('https://cors-anywhere.herokuapp.com/' + src);
+            _hlsInstance.loadSource('https://secret-ocean-49799.herokuapp.com/' + src);
             // @ts-ignore
             _hlsInstance.attachMedia(audioRef.current);
 
         } else { // @ts-ignore
             if (audioRef.current.canPlayType('application/vnd.apple.mpegurl')) {
                 // @ts-ignore
-                audioRef.current.src = 'https://cors-anywhere.herokuapp.com/' + currentTrack.src;
+                audioRef.current.src = 'https://secret-ocean-49799.herokuapp.com/' + currentTrack.src;
                 // @ts-ignore
                 audioRef.current.pause();
             }
