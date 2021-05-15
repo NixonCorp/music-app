@@ -34,10 +34,14 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     //         return new Request(context.url, initParams);
     //     },
     // };
-    var config = {
+    const config = {
         //@ts-ignore
         xhrSetup: function (xhr, url) {
-            url = 'https://secret-ocean-49799.herokuapp.com/' + url;
+            if (url.indexOf('.vkuseraudio.net') === 0) {
+                url = 'https://secret-ocean-49799.herokuapp.com/' + url;
+                xhr.open('GET', url, true);
+            }
+
         },
     };
     //@ts-ignore
