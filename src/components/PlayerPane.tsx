@@ -45,7 +45,9 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     }
     const config = {
         //@ts-ignore
-        xhrSetup: xhrSetupFn(xhr, url)
+        xhrSetup: function(xhr, url){
+            xhrSetupFn(xhr, url);
+        }
     };
     //@ts-ignore
     const _hlsInstance: Hls = new Hls(config);
