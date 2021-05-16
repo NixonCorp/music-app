@@ -36,35 +36,23 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     //     },
     // };
     //@ts-ignore
-    // const xhrSetupFn = (xhr, url) => {
-    //     if (url.indexOf('.vkuseraudio.net') === 0) {
-    //         let a = 'https://secret-ocean-49799.herokuapp.com/';
-    //         let b = url;
-    //          let c = a + b;
-    //         xhr.open('GET', c, true);
-    //     }
-    // }
-    // const config = {
-    //      //@ts-ignore
-    //     xhrSetup: function(xhr, url){
-    //         //@ts-ignore
-    //         xhr.beforeRequest = function(options){
-    //             options.uri = 'https://secret-ocean-49799.herokuapp.com/' + options.uri;
-    //             //.replace('cloudfront.net', 'foo.com');
-    //             console.log(options);
-    //             return options;
-    //         };
-    //     }
-    // };
-    //@ts-ignore
-    Hls.xhr.beforeRequest = function(options){
-        options.uri = 'https://secret-ocean-49799.herokuapp.com/' + options.uri;
-        //.replace('cloudfront.net', 'foo.com');
-        console.log(options);
-        return options;
+    const xhrSetupFn = (xhr, url) => {
+        let a = 'https://secret-ocean-49799.herokuapp.com/';
+        let b = url;
+        let c = a + b;
+        if (url.indexOf('.vkuseraudio.net') === 0) {
+            xhr.open('GET', 'https://google.com', true);
+        }
+    }
+    const config = {
+         //@ts-ignore
+        xhrSetup: function(xhr, url){
+            xhrSetupFn(xhr, url);
+        }
     };
+
     //@ts-ignore
-    const _hlsInstance: Hls = new Hls();
+    const _hlsInstance: Hls = new Hls(config);
 
     const [currentTrack, setCurrentTrack] = useState<ITrack>(album.tracks[0]);
     const audioRef = useRef(null);
