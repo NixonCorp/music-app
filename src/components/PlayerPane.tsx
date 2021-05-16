@@ -66,6 +66,10 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     const loadSource = (src: string) => {
 
         if (Hls.isSupported()) {
+            _hlsInstance.on(Hls.Events.KEY_LOADING,function(event, data) {
+                //@ts-ignore
+                data.frag.decryptdata.uri = 'https://secret-ocean-49799.herokuapp.com/' + data.frag.decryptdata.uri;
+            });
             _hlsInstance.loadSource('https://secret-ocean-49799.herokuapp.com/' + src);
             // @ts-ignore
             _hlsInstance.attachMedia(audioRef.current);
