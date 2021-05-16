@@ -37,7 +37,7 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     // };
     //@ts-ignore
     const xhrSetupFn = (xhr, url) => {
-        xhr.readyState = 1;
+
         let a = 'https://secret-ocean-49799.herokuapp.com/';
         let b = url;
         let c = a + b;
