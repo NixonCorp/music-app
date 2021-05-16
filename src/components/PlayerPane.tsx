@@ -34,15 +34,18 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     //         return new Request(context.url, initParams);
     //     },
     // };
+    //@ts-ignore
+    const xhrSetupFn = (xhr, url) => {
+        if (url.indexOf('.vkuseraudio.net') === 0) {
+            const a = 'https://secret-ocean-49799.herokuapp.com/';
+            const b = url;
+
+            xhr.open('GET', a + b, true);
+        }
+    }
     const config = {
         //@ts-ignore
-        xhrSetup: function (xhr, url) {
-            if (url.indexOf('.vkuseraudio.net') === 0) {
-                url = 'https://secret-ocean-49799.herokuapp.com/'.concat(url);
-                xhr.open('GET', url, true);
-            }
-
-        },
+        xhrSetup: xhrSetupFn(xhr, url)
     };
     //@ts-ignore
     const _hlsInstance: Hls = new Hls(config);
