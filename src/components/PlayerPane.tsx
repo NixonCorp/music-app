@@ -35,22 +35,22 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     //     },
     // };
     //@ts-ignore
-    const xhrSetupFn = (xhr, url) => {
-        if (url.indexOf('.vkuseraudio.net') === 0) {
-            let a = 'https://secret-ocean-49799.herokuapp.com/';
-            let b = url;
-             let c = a + b;
-            xhr.open('GET', c, true);
-        }
-    }
-    const config = {
-        //@ts-ignore
-        xhrSetup: function(xhr, url){
-            xhrSetupFn(xhr, url);
-        }
-    };
+    // const xhrSetupFn = (xhr, url) => {
+    //     if (url.indexOf('.vkuseraudio.net') === 0) {
+    //         let a = 'https://secret-ocean-49799.herokuapp.com/';
+    //         let b = url;
+    //          let c = a + b;
+    //         xhr.open('GET', c, true);
+    //     }
+    // }
+    // const config = {
+    //     //@ts-ignore
+    //     xhrSetup: function(xhr, url){
+    //         xhrSetupFn(xhr, url);
+    //     }
+    // };
     //@ts-ignore
-    const _hlsInstance: Hls = new Hls(config);
+    const _hlsInstance: Hls = new Hls();
 
     const [currentTrack, setCurrentTrack] = useState<ITrack>(album.tracks[0]);
     const audioRef = useRef(null);
@@ -66,7 +66,7 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     const loadSource = (src: string) => {
 
         if (Hls.isSupported()) {
-            _hlsInstance.loadSource(src);
+            _hlsInstance.loadSource('https://secret-ocean-49799.herokuapp.com/' + src);
             // @ts-ignore
             _hlsInstance.attachMedia(audioRef.current);
 
