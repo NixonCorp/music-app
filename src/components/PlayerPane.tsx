@@ -44,20 +44,27 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     //         xhr.open('GET', c, true);
     //     }
     // }
-    const config = {
-         //@ts-ignore
-        xhrSetup: function(xhr, url){
-            //@ts-ignore
-            xhr.beforeRequest = function(options){
-                options.uri = 'https://secret-ocean-49799.herokuapp.com/' + options.uri;
-                //.replace('cloudfront.net', 'foo.com');
-                console.log(options);
-                return options;
-            };
-        }
+    // const config = {
+    //      //@ts-ignore
+    //     xhrSetup: function(xhr, url){
+    //         //@ts-ignore
+    //         xhr.beforeRequest = function(options){
+    //             options.uri = 'https://secret-ocean-49799.herokuapp.com/' + options.uri;
+    //             //.replace('cloudfront.net', 'foo.com');
+    //             console.log(options);
+    //             return options;
+    //         };
+    //     }
+    // };
+    //@ts-ignore
+    Hls.xhr.beforeRequest = function(options){
+        options.uri = 'https://secret-ocean-49799.herokuapp.com/' + options.uri;
+        //.replace('cloudfront.net', 'foo.com');
+        console.log(options);
+        return options;
     };
     //@ts-ignore
-    const _hlsInstance: Hls = new Hls(config);
+    const _hlsInstance: Hls = new Hls();
 
     const [currentTrack, setCurrentTrack] = useState<ITrack>(album.tracks[0]);
     const audioRef = useRef(null);
