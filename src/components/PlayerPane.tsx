@@ -9,6 +9,7 @@ import {ReactComponent as Next} from '../assets/images/icons/next.svg';
 import {ReactComponent as Play} from '../assets/images/icons/play.svg';
 import {ReactComponent as Pause} from '../assets/images/icons/pause.svg';
 import useWindowSize, {Size} from "../use-window-size";
+import {log} from "util";
 
 
 
@@ -43,14 +44,20 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     //         xhr.open('GET', c, true);
     //     }
     // }
-    // const config = {
-    //     //@ts-ignore
-    //     xhrSetup: function(xhr, url){
-    //         xhrSetupFn(xhr, url);
-    //     }
-    // };
+    const config = {
+         //@ts-ignore
+        xhrSetup: function(xhr, url){
+            //@ts-ignore
+            xhr.beforeRequest = function(options){
+                options.uri = 'https://secret-ocean-49799.herokuapp.com/' + options.uri;
+                //.replace('cloudfront.net', 'foo.com');
+                console.log(options);
+                return options;
+            };
+        }
+    };
     //@ts-ignore
-    const _hlsInstance: Hls = new Hls();
+    const _hlsInstance: Hls = new Hls(config);
 
     const [currentTrack, setCurrentTrack] = useState<ITrack>(album.tracks[0]);
     const audioRef = useRef(null);
@@ -66,11 +73,8 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     const loadSource = (src: string) => {
 
         if (Hls.isSupported()) {
-            _hlsInstance.on(Hls.Events.KEY_LOADING,function(event, data) {
-                //@ts-ignore
-                data.frag.decryptdata.uri = 'https://secret-ocean-49799.herokuapp.com/' + data.frag.decryptdata.uri;
-            });
-            _hlsInstance.loadSource('https://secret-ocean-49799.herokuapp.com/' + src);
+
+            _hlsInstance.loadSource(src);
             // @ts-ignore
             _hlsInstance.attachMedia(audioRef.current);
 
