@@ -36,24 +36,21 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     //     },
     // };
     //@ts-ignore
-    const xhrSetupFn = (xhr, url) => {
-
-        let a = 'https://secret-ocean-49799.herokuapp.com/';
-        let b = url;
-        let c = a + b;
-        if (url.indexOf('.vkuseraudio.net') === 0) {
-            xhr.open('GET', 'https://google.com', true);
-        }
-    }
+    // const xhrSetupFn = (xhr, url) => {
+    //
+    //     let a = 'https://secret-ocean-49799.herokuapp.com/';
+    //     let b = url;
+    //     let c = a + b;
+    //     if (url.indexOf('.vkuseraudio.net') === 0) {
+    //         xhr.open('GET', 'https://google.com', true);
+    //     }
+    // }
     const config = {
-         //@ts-ignore
-        xhrSetup: function(xhr, url){
-            xhrSetupFn(xhr, url);
-        }
+        proxyUrl: 'https://musician-hub-proxy.herokuapp.com/'
     };
 
     //@ts-ignore
-    const _hlsInstance: Hls = new Hls(config);
+    const _hlsInstance: Hls = new Hls();
 
     const [currentTrack, setCurrentTrack] = useState<ITrack>(album.tracks[0]);
     const audioRef = useRef(null);
@@ -64,20 +61,28 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
         volume: 0,
     });
 
+    const changeUrl = (url: string) : string => {
+        const parts = url.split('?');
+
+        const firstParts = parts[0].split('/');
+
+        return `${firstParts[0]}//${firstParts[2]}/${firstParts[3]}/${firstParts[5]}.mp3?${parts[1]}`;
+    }
+
     const [playingStatus, setPlayingStatus] = useState({});
 
     const loadSource = (src: string) => {
 
         if (Hls.isSupported()) {
 
-            _hlsInstance.loadSource(src);
+            _hlsInstance.loadSource(changeUrl(src));
             // @ts-ignore
             _hlsInstance.attachMedia(audioRef.current);
 
         } else { // @ts-ignore
             if (audioRef.current.canPlayType('application/vnd.apple.mpegurl')) {
                 // @ts-ignore
-                audioRef.current.src = 'https://secret-ocean-49799.herokuapp.com/' + currentTrack.src;
+                audioRef.current.src = 'https://musician-hub-proxy.herokuapp.com/' + changeUrl(currentTrack.src);
                 // @ts-ignore
                 audioRef.current.pause();
             }

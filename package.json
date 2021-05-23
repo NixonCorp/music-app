@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "color-thief-react": "^2.0.12",
-    "hls.js": "^1.0.3-0.canary.7233",
+    "hls.js": "^1.0.3",
     "react-loading-skeleton": "^2.2.0"
   }
 }
