@@ -50,7 +50,7 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     };
 
     //@ts-ignore
-    const _hlsInstance: Hls = new Hls();
+    const _hlsInstance: Hls = new Hls(config);
 
     const [currentTrack, setCurrentTrack] = useState<ITrack>(album.tracks[0]);
     const audioRef = useRef(null);
