@@ -31,6 +31,7 @@ function App() {
 
         }
     }
+    const baseApiUrl = 'https://vk-music-api.herokuapp.com';
     const getAlbums = async (searchText: string): Promise<IAlbum[]> => {
         // POST request using fetch with async/await
         const requestOptions = {
@@ -38,7 +39,7 @@ function App() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(searchText),
         };
-        return await fetch('/api/Vk', requestOptions)
+        return await fetch(baseApiUrl + '/api/Vk', requestOptions)
             .then((res) => res.json())
             .then((body) => body);
     };
@@ -50,7 +51,7 @@ function App() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(genreId),
         };
-        return await fetch('/api/Vk/GetPopular', requestOptions)
+        return await fetch(baseApiUrl + '/api/Vk/GetPopular', requestOptions)
             .then((res) => res.json())
             .then((body) => body);
     };
