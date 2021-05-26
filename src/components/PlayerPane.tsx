@@ -45,12 +45,27 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
     //         xhr.open('GET', 'https://google.com', true);
     //     }
     // }
+
     const config = {
-        proxyUrl: 'https://musician-hub-proxy.herokuapp.com/'
+
+        // @ts-ignore
+        xhrSetup: function (xhr, url) {
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+            xhr.setRequestHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
+            xhr.setRequestHeader(
+                "Access-Control-Allow-Headers",
+                "*"
+            );
+            xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+            xhr.setRequestHeader("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+
+
+
+        }
     };
 
     //@ts-ignore
-    const _hlsInstance: Hls = new Hls(config);
+    const _hlsInstance: Hls = new Hls();
 
     const [currentTrack, setCurrentTrack] = useState<ITrack>(album.tracks[0]);
     const audioRef = useRef(null);
@@ -73,20 +88,22 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
 
     const loadSource = (src: string) => {
 
-        if (Hls.isSupported()) {
-
-            _hlsInstance.loadSource(changeUrl(src));
-            // @ts-ignore
-            _hlsInstance.attachMedia(audioRef.current);
-
-        } else { // @ts-ignore
-            if (audioRef.current.canPlayType('application/vnd.apple.mpegurl')) {
-                // @ts-ignore
-                audioRef.current.src = 'https://musician-hub-proxy.herokuapp.com/' + changeUrl(currentTrack.src);
-                // @ts-ignore
-                audioRef.current.pause();
-            }
-        }
+        // @ts-ignore
+        audioRef.current.src = changeUrl(src);
+        // if (Hls.isSupported()) {
+        //
+        //     _hlsInstance.loadSource(changeUrl(src));
+        //     // @ts-ignore
+        //     _hlsInstance.attachMedia(audioRef.current);
+        //
+        // } else { // @ts-ignore
+        //     if (audioRef.current.canPlayType('application/vnd.apple.mpegurl')) {
+        //         // @ts-ignore
+        //         audioRef.current.src = changeUrl(src);
+        //         // @ts-ignore
+        //         audioRef.current.pause();
+        //     }
+        // }
     }
 
     const playAudio = (audioRef: React.MutableRefObject<any>) => {
@@ -111,7 +128,7 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
                             document.getElementById('bar4').style.animationPlayState = 'running';
                         })
                         .catch((error: any) => {
-                            // console.log(error);
+                             console.log(error);
                         });
                 }
 
@@ -404,7 +421,7 @@ const PlayerPane: React.FC<AlbumProps> = ({album, playerPaneStatus}) => {
                                 })
                                 }
                             </div>
-                            <audio
+                            <audio preload="auto"
                                 //@ts-ignore
                                 onLoadedMetadata={(e) => timeUpdateHandler(e.target)}
                                 //@ts-ignore
