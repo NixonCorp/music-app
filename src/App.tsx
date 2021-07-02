@@ -10,20 +10,24 @@ import PlayerPane from "./components/PlayerPane";
 
 
 
-function App() {
-    const [searchTerm, setSearchTerm] = useState('');
+export default function App() {
+    const [searchTerm, setSearchTerm] = useState<string>('');
     const [albums, setAlbums] = useState<IAlbum[]>([]);
     const debouncedSearchTerm = useDebounce(searchTerm, 800);
     const [albumsLoading, setLoadingStatus] = useState<boolean>(false);
     const [selectedAlbum, setSelectedAlbum] = useState<(IAlbum | null)>(null);
     const [playerPaneStatus, setPlayerPaneStatus] = useState(false);
+
+
     const renderAlbums = (albums: IAlbum[], albumsLoading: boolean) => {
-        if (!albumsLoading) {
-            return albums.map((album, index) => {
-                return <Album album={album} key={index} playerPaneStatus={playerPaneStatus} setAlbum={setSelectedAlbum}
-                              setPlayerPaneStatus={setPlayerPaneStatus}/>;
-            });
-        } else {
+            if (!albumsLoading) {
+                return albums.map((album, index) => {
+                    return <Album album={album} key={index} playerPaneStatus={playerPaneStatus}
+                                  setAlbum={setSelectedAlbum}
+                                  setPlayerPaneStatus={setPlayerPaneStatus}/>;
+                });
+
+        }else {
             // @ts-ignore
             return [...Array(50).keys()].map((n) => {
                 return <AlbumSkeleton key={n}/>;
@@ -31,7 +35,7 @@ function App() {
 
         }
     }
-    const baseApiUrl = 'https://vk-music-api.herokuapp.com';
+    const baseApiUrl = 'http://localhost:5003';
     const getAlbums = async (searchText: string): Promise<IAlbum[]> => {
         // POST request using fetch with async/await
         const requestOptions = {
@@ -68,6 +72,7 @@ function App() {
             });
 
         } else {
+            setLoadingStatus(true);
             getPopular(1).then((results) => {
                 // Set back to false since request finished
                 setLoadingStatus(false);
@@ -119,4 +124,5 @@ function App() {
     );
 }
 
-export default App;
+
+

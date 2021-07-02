@@ -20,8 +20,16 @@
   }
   @media screen and (max-width: 768px) {
     &__album-image{
-      width: 130px !important;
-      height: 130px !important;
+      width: 170px !important;
+      height: 170px !important;
+
+    }
+
+  }
+  @media screen and (max-width: 375px) {
+    &__album-image{
+      width: 140px !important;
+      height: 140px !important;
 
     }
 
