@@ -35,7 +35,7 @@ export default function App() {
 
         }
     }
-    const baseApiUrl = 'http://localhost:5003';
+    const baseApiUrl = '';
     const getAlbums = async (searchText: string): Promise<IAlbum[]> => {
         // POST request using fetch with async/await
         const requestOptions = {
