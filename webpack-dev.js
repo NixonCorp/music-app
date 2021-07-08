@@ -11,6 +11,8 @@ module.exports = merge(commonConfig, {
     "./src/index.tsx", // the entry point of our app
   ],
   devServer: {
+
+
     port: 3000,
     hot: true
   },

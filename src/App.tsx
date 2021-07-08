@@ -7,7 +7,7 @@ import Album, {AlbumProps, IAlbum} from "./components/Album";
 import useDebounce from "./use-debounce";
 import AlbumSkeleton from "./components/AlbumSkeleton";
 import PlayerPane from "./components/PlayerPane";
-
+import useWindowSize, {Size} from "./use-window-size";
 
 
 export default function App() {
@@ -17,17 +17,17 @@ export default function App() {
     const [albumsLoading, setLoadingStatus] = useState<boolean>(false);
     const [selectedAlbum, setSelectedAlbum] = useState<(IAlbum | null)>(null);
     const [playerPaneStatus, setPlayerPaneStatus] = useState(false);
-
+    const windowSize: Size = useWindowSize();
 
     const renderAlbums = (albums: IAlbum[], albumsLoading: boolean) => {
-            if (!albumsLoading) {
-                return albums.map((album, index) => {
-                    return <Album album={album} key={index} playerPaneStatus={playerPaneStatus}
-                                  setAlbum={setSelectedAlbum}
-                                  setPlayerPaneStatus={setPlayerPaneStatus}/>;
-                });
+        if (!albumsLoading) {
+            return albums.map((album, index) => {
+                return <Album album={album} key={index} playerPaneStatus={playerPaneStatus}
+                              setAlbum={setSelectedAlbum}
+                              setPlayerPaneStatus={setPlayerPaneStatus}/>;
+            });
 
-        }else {
+        } else {
             // @ts-ignore
             return [...Array(50).keys()].map((n) => {
                 return <AlbumSkeleton key={n}/>;
@@ -69,6 +69,9 @@ export default function App() {
                 setLoadingStatus(false);
                 // Set results state
                 setAlbums(results);
+                document.getElementsByClassName('albums-container')[0].scrollTo(0, 0);
+
+
             });
 
         } else {
@@ -78,6 +81,7 @@ export default function App() {
                 setLoadingStatus(false);
                 // Set results state
                 setAlbums(results);
+                document.getElementsByClassName('albums-container')[0].scrollTo(0, 0);
             });
         }
     }, [debouncedSearchTerm]);
@@ -86,8 +90,6 @@ export default function App() {
         setLoadingStatus(true);
         setSearchTerm(searchText);
     }
-
-
 
 
 
@@ -110,13 +112,18 @@ export default function App() {
                     </div>
                 </div>
             </header>
-            <div className="title">Albums</div>
-            <div className="albums-container">
-                {renderAlbums(albums, albumsLoading)}
-            </div>
+
+                <div className="title">Albums</div>
+
+                <div className="albums-container" style={ // @ts-ignore
+                    playerPaneStatus && windowSize?.width < 769 ? {bottom: '120px'
+                    } : {}}>
+                    {renderAlbums(albums, albumsLoading)}
+                </div>
+
             {
                 // @ts-ignore
-                selectedAlbum && <PlayerPane album={selectedAlbum} playerPaneStatus={playerPaneStatus} />
+                selectedAlbum && <PlayerPane album={selectedAlbum} playerPaneStatus={playerPaneStatus}/>
             }
 
 

@@ -251,26 +251,30 @@
         margin-left: 5px;
         margin-right: 8px;
         min-width: 16px;
+        max-width: 16px;
         text-align: center;
       }
 
       &-play-icon {
         min-width: 16px;
-        min-height: 16px;
+        max-width: 16px;
+        //min-height: 16px;
         background: no-repeat url("../assets/images/icons/play.svg");
         margin-right: 8px;
       }
 
       &-pause-icon {
         min-width: 16px;
-        min-height: 16px;
+        max-width: 16px;
+        //min-height: 16px;
         background: no-repeat url("../assets/images/icons/pause.svg");
         margin-right: 8px;
       }
 
       &-equalizer-icon {
-        width: 16px;
-        height: 16px;
+        min-width: 16px;
+        max-width: 16px;
+        //height: 16px;
         //background: no-repeat url("../assets/images/icons/equalizer.svg");
         margin-right: 8px;
         margin-left: 5px;
@@ -318,18 +322,21 @@
     margin-top: -20px;
     &-prev-icon{
       cursor: pointer;
-      width: 20px;
-      height: 20px;
+      min-width: 20px;
+      max-width: 20px;
+      //height: 20px;
     }
     &-play-pause-icon{
       cursor: pointer;
-      width: 32px;
-      height: 32px;
+      min-width: 32px;
+      max-width: 32px;
+      //height: 32px;
     }
     &-next-icon{
       cursor: pointer;
-      width: 20px;
-      height: 20px;
+      min-width: 20px;
+      max-width: 20px;
+      //height: 20px;
     }
   }
 }
